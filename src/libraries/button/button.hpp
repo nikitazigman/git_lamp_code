@@ -18,24 +18,23 @@ public:
         this->event = event;
         this->pressed = false;
     }
-
-    void init()
+    void init(void)
     {
         pinMode(this->button_pin, INPUT);
     }
 
     void run()
     {
-
         if (digitalRead(this->button_pin))
             this->pressed = true;
 
-        if (pressed && !digitalRead(this->button_pin))
+        if (this->pressed && !digitalRead(this->button_pin))
         {
             this->pressed = false;
-            *this->event = true;
+            *this->event = !*this->event;
+            Serial.println(*this->event);
         }
-        runned();
+        this->runned();
     }
 };
 
