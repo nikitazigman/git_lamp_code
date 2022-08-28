@@ -1,4 +1,4 @@
-#include <../ArduinoThread/StaticThreadController.h>
+#include <StaticThreadController.h>
 #include <Thread.h>
 #include <ThreadController.h>
 #include "ESP8266TimerInterrupt.h"
