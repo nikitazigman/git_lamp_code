@@ -28,10 +28,10 @@
 
 ESP8266Timer ITimer;
 ThreadController controll = ThreadController();
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXEL_NUMBER, LED_DATA_PIN, NEO_GRB + NEO_KHZ800);
 
 bool EVENT = false;
-AnimationSettings animation_settings = AnimationSettings(PIXEL_NUMBER, INTENSITY);
-LEDThread led_thread = LEDThread(LED_DATA_PIN, &animation_settings, &EVENT);
+LEDThread led_thread = LEDThread(&pixels, &EVENT);
 ButtonThread button_thread = ButtonThread(BUTTON_PIN, &EVENT);
 HttpThread http_tread = HttpThread(SSID, PASSWORD);
 

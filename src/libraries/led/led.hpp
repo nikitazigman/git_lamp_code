@@ -3,9 +3,6 @@
 
 #include <Thread.h>
 #include <Adafruit_NeoPixel.h>
-#include "animation_settings.hpp"
-
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(6, 15, NEO_GRB + NEO_KHZ800);
 
 uint32_t pallet[60] = {
     0x00FFFB,
@@ -73,7 +70,7 @@ class LEDThread : public Thread
 {
 private:
     bool *event;
-    AnimationSettings *animation_settings;
+    Adafruit_NeoPixel *pixels;
 
     int get_current_value()
     {
@@ -85,23 +82,23 @@ private:
     void animation(void)
     {
         int current_value = this->get_current_value();
-        for (int led = 0; led < this->animation_settings->pixel_number; led++)
+        for (int led = 0; led < this->pixels->numPixels(); led++)
         {
-            pixels.setPixelColor(led, pallet[current_value]);
+            this->pixels->setPixelColor(led, pallet[current_value]);
         }
-        pixels.show();
+        this->pixels->show();
     }
 
 public:
-    LEDThread(int data_pin, AnimationSettings *animation_settings, bool *event) : Thread()
+    LEDThread(Adafruit_NeoPixel *pixels, bool *event) : Thread()
     {
-        this->animation_settings = animation_settings;
+        this->pixels = pixels;
         this->event = event;
     }
     void init(void)
     {
-        pixels.begin();
-        pixels.clear();
+        this->pixels->begin();
+        this->pixels->clear();
     }
     void run(void)
     {
