@@ -1,9 +1,19 @@
+#include <Arduino.h>
+
+#include <ESP8266WiFi.h>
+#include <ESP8266WiFiMulti.h>
+
+#include <ESP8266HTTPClient.h>
+
+#include <WiFiClient.h>
+
 #include <StaticThreadController.h>
 #include <ThreadController.h>
 #include "ESP8266TimerInterrupt.h"
 
 #include "libraries/led/led.hpp"
 #include "libraries/button/button.hpp"
+#include "libraries/http/http.hpp"
 
 #define TIMER_INTERVAL_MS 1
 
@@ -13,19 +23,18 @@
 #define PIXEL_NUMBER 6
 #define INTENSITY 0.02
 
+#define SSID "VM2381623"
+#define PASSWORD "6qfsbsKFzws4"
+
 ESP8266Timer ITimer;
 ThreadController controll = ThreadController();
-
-void IRAM_ATTR TimerHandler()
-{
-  controll.run();
-}
 
 bool EVENT = false;
 AnimationSettings animation_settings = AnimationSettings(PIXEL_NUMBER, INTENSITY);
 LEDThread led_thread = LEDThread(LED_DATA_PIN, &animation_settings, &EVENT);
 ButtonThread button_thread = ButtonThread(BUTTON_PIN, &EVENT);
-// 00FFFB -> #FD005D
+HttpThread http_tread = HttpThread(SSID, PASSWORD);
+
 void setup()
 {
   Serial.begin(115200);
@@ -36,13 +45,18 @@ void setup()
   button_thread.init();
   button_thread.setInterval(100);
 
+  http_tread.init();
+  http_tread.setInterval(1000);
+
+  // if (!ITimer.attachInterruptInterval(TIMER_INTERVAL_MS * 1000, TimerHandler))
+  //   Serial.println(F("Can't set ITimer correctly. Select another freq. or interval"));
+
   controll.add(&led_thread);
   controll.add(&button_thread);
-
-  if (!ITimer.attachInterruptInterval(TIMER_INTERVAL_MS * 1000, TimerHandler))
-    Serial.println(F("Can't set ITimer correctly. Select another freq. or interval"));
+  controll.add(&http_tread);
 }
 
 void loop()
 {
+  controll.run();
 }
