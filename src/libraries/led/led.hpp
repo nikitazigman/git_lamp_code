@@ -106,6 +106,11 @@ public:
         {
             this->animation();
         }
+        else
+        {
+            this->pixels->clear();
+            this->pixels->show();
+        }
         this->runned();
     }
 };

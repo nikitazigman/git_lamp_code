@@ -35,7 +35,7 @@ public:
         if (this->pressed && !digitalRead(this->button_pin))
         {
             this->pressed = false;
-            *this->event = !*this->event;
+            *this->event = false;
             Serial.println(*this->event);
         }
         this->runned();
