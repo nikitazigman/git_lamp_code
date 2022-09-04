@@ -1,0 +1,41 @@
+[
+    {
+        "id": "23811475290",
+        "type": "PushEvent",
+        "actor": {
+            "id": 60356768,
+            "login": "nikitazigman",
+            "display_login": "nikitazigman",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/nikitazigman",
+            "avatar_url": "https://avatars.githubusercontent.com/u/60356768?"
+        },
+        "repo": {
+            "id": 529855786,
+            "name": "nikitazigman/git_lamp_code",
+            "url": "https://api.github.com/repos/nikitazigman/git_lamp_code"
+        },
+        "payload": {
+            "push_id": 10922409275,
+            "size": 1,
+            "distinct_size": 1,
+            "ref": "refs/heads/http",
+            "head": "2002c9683e82dcc99b169c7095cf6c172a297838",
+            "before": "24c6a82fc1eb572220fd3631aad1e89ca60fc101",
+            "commits": [
+                {
+                    "sha": "2002c9683e82dcc99b169c7095cf6c172a297838",
+                    "author": {
+                        "email": "zigman.nikita@gmail.com",
+                        "name": "никита смирнов"
+                    },
+                    "message": "add threads",
+                    "distinct": true,
+                    "url": "https://api.github.com/repos/nikitazigman/git_lamp_code/commits/2002c9683e82dcc99b169c7095cf6c172a297838"
+                }
+            ]
+        },
+        "public": true,
+        "created_at": "2022-09-04T20:33:09Z"
+    }
+]
