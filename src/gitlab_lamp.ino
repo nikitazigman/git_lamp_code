@@ -38,7 +38,7 @@ bool EVENT = false;
 LEDThread led_thread = LEDThread(&pixels, &EVENT);
 ButtonThread button_thread = ButtonThread(BUTTON_PIN, POWER_PIN, &EVENT);
 HttpThread http_tread = HttpThread(SSID, PASSWORD, AUTH_VALUE, PULL_OF_REPOS, 1, &EVENT);
-
+// test
 void setup()
 {
   Serial.begin(115200);
