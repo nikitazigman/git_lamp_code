@@ -17,7 +17,9 @@
 
 #define TIMER_INTERVAL_MS 1
 
-#define BUTTON_PIN 14
+#define BUTTON_PIN 12
+#define POWER_PIN 14
+
 #define LED_DATA_PIN 15
 
 #define PIXEL_NUMBER 6
@@ -26,13 +28,15 @@
 #define SSID "VM2381623"
 #define PASSWORD "6qfsbsKFzws4"
 
+#define GITHUB_TOKEN ""
+
 ESP8266Timer ITimer;
 ThreadController controll = ThreadController();
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXEL_NUMBER, LED_DATA_PIN, NEO_GRB + NEO_KHZ800);
 
 bool EVENT = false;
 LEDThread led_thread = LEDThread(&pixels, &EVENT);
-ButtonThread button_thread = ButtonThread(BUTTON_PIN, &EVENT);
+ButtonThread button_thread = ButtonThread(BUTTON_PIN, POWER_PIN, &EVENT);
 HttpThread http_tread = HttpThread(SSID, PASSWORD);
 
 void setup()
