@@ -18,7 +18,7 @@
 ESP8266WiFiMulti WiFiMulti;
 std::unique_ptr<BearSSL::WiFiClientSecure> client(new BearSSL::WiFiClientSecure);
 HTTPClient https;
-StaticJsonDocument<2000> doc;
+StaticJsonDocument<2200> doc;
 
 class HttpThread : public Thread
 {
@@ -70,8 +70,9 @@ public:
         {
             delay(1000);
         }
-        client->setInsecure();
+        delay(1000);
 
+        client->setInsecure();
         Serial.println("WiFi is connected");
     }
 
@@ -82,10 +83,13 @@ public:
         sprintf(this->url_buf, this->url_pattern, repo);
 
         Serial.printf("request repo: %s\n", this->url_buf);
+        Serial.printf("header: %s:%s\n", this->accept_key, this->accept_value);
+        Serial.printf("header: %s:%s\n", this->auth_key, this->auth_value);
 
         https.begin(*client, this->url_buf);
         https.addHeader(this->accept_key, this->accept_value);
         https.addHeader(this->auth_key, this->auth_value);
+
         httpCode = https.GET();
 
         if (httpCode > 0)
@@ -113,7 +117,7 @@ public:
         }
         else
         {
-            Serial.println("http error");
+            Serial.printf("[HTTP] GET... failed, error: %s\n", https.errorToString(httpCode).c_str());
         }
         https.end();
     }

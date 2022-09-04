@@ -75,7 +75,7 @@ private:
     int get_current_value()
     {
         static float value = 0;
-        value += 0.02;
+        value += 0.1;
         return int(((sin(value) + 1) / 2.0) * 60);
     }
 

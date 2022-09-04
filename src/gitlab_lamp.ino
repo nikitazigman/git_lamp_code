@@ -42,14 +42,17 @@ HttpThread http_tread = HttpThread(SSID, PASSWORD, AUTH_VALUE, PULL_OF_REPOS, 1,
 void setup()
 {
   Serial.begin(115200);
+
+  Serial.println("wait a bit");
+  delay(5000);
   // Configure myThread
   led_thread.init();
-  led_thread.setInterval(10);
-
   button_thread.init();
-  button_thread.setInterval(100);
-
   http_tread.init();
+  delay(5000);
+
+  led_thread.setInterval(100);
+  button_thread.setInterval(100);
   http_tread.setInterval(10000);
 
   // if (!ITimer.attachInterruptInterval(TIMER_INTERVAL_MS * 1000, TimerHandler))
