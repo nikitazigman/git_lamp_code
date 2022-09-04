@@ -28,35 +28,38 @@
 #define SSID "VM2381623"
 #define PASSWORD "6qfsbsKFzws4"
 
-#define GITHUB_TOKEN ""
+#define AUTH_VALUE "Bearer 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"
+const char *PULL_OF_REPOS[1] = {
+    "nikitazigman/git_lamp_code",
+};
 
 ESP8266Timer ITimer;
 ThreadController controll = ThreadController();
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXEL_NUMBER, LED_DATA_PIN, NEO_GRB + NEO_KHZ800);
 
 bool EVENT = false;
-LEDThread led_thread = LEDThread(&pixels, &EVENT);
-ButtonThread button_thread = ButtonThread(BUTTON_PIN, POWER_PIN, &EVENT);
-HttpThread http_tread = HttpThread(SSID, PASSWORD);
+// LEDThread led_thread = LEDThread(&pixels, &EVENT);
+// ButtonThread button_thread = ButtonThread(BUTTON_PIN, POWER_PIN, &EVENT);
+HttpThread http_tread = HttpThread(SSID, PASSWORD, AUTH_VALUE, PULL_OF_REPOS, 1, &EVENT);
 
 void setup()
 {
   Serial.begin(115200);
   // Configure myThread
-  led_thread.init();
-  led_thread.setInterval(10);
+  // led_thread.init();
+  // led_thread.setInterval(10);
 
-  button_thread.init();
-  button_thread.setInterval(100);
+  // button_thread.init();
+  // button_thread.setInterval(100);
 
   http_tread.init();
-  http_tread.setInterval(1000);
+  http_tread.setInterval(10000);
 
   // if (!ITimer.attachInterruptInterval(TIMER_INTERVAL_MS * 1000, TimerHandler))
   //   Serial.println(F("Can't set ITimer correctly. Select another freq. or interval"));
 
-  controll.add(&led_thread);
-  controll.add(&button_thread);
+  // controll.add(&led_thread);
+  // controll.add(&button_thread);
   controll.add(&http_tread);
 }
 
