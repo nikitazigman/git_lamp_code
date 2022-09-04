@@ -14,6 +14,7 @@
 #include "libraries/led/led.hpp"
 #include "libraries/button/button.hpp"
 #include "libraries/http/http.hpp"
+#include "libraries/credentials.hpp"
 
 #define TIMER_INTERVAL_MS 1
 
@@ -25,10 +26,6 @@
 #define PIXEL_NUMBER 6
 #define INTENSITY 0.02
 
-#define SSID "VM2381623"
-#define PASSWORD "6qfsbsKFzws4"
-
-#define AUTH_VALUE "Bearer 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"
 const char *PULL_OF_REPOS[1] = {
     "nikitazigman/git_lamp_code",
 };
